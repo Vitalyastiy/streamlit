@@ -12,20 +12,20 @@ plt.style.use('dark_background')  # Устанавливаем стиль для
 df = pd.read_csv('Jira 2024-07-30T22_11_01+0300.csv')
 
 # Преобразование столбцов 'Обновленo' и 'Создано' в формат datetime
-df['Обновлено'] = pd.to_datetime(df['Обновленo'])
-df['Создано'] = pd.to_datetime(df['Создано'])
+df['Обновлено'] = pd.to_datetime(df['Обновленo'], dayfirst=True)
+df['Создано'] = pd.to_datetime(df['Создано'], dayfirst=True)
 
 df['Пользовательское поле (Story Points)'] = df['Пользовательское поле (Story Points)'].fillna(0).astype(int)
 
 # Фильтры в боковой панели
 st.sidebar.markdown("## Фильтры")
-selected_executors = st.sidebar.multiselect('Выберите исполнителей', df['Исполнитель'].unique(), default=df['Исполнитель'].unique())
-selected_status = st.sidebar.multiselect('Выберите статус задачи', df['Статус'].unique(), default=df['Статус'].unique())
+executors = df['Исполнитель'].unique().tolist()
+statuses = df['Статус'].unique().tolist()
+selected_executors = st.sidebar.multiselect('Выберите исполнителей', executors, default=executors)
+selected_status = st.sidebar.multiselect('Выберите статус задачи', statuses, default=statuses)
 st.sidebar.markdown("### Фильтрация по дате")
 start_date = st.sidebar.date_input('Начальная дата', df['Создано'].min().date())
 end_date = st.sidebar.date_input('Конечная дата', df['Создано'].max().date())
-
-
 
 # Применение фильтров к данным
 filtered_df = df[
@@ -96,7 +96,6 @@ create_plot(fig6, ax6, 'Распределение времени выполне
 # Отображение таблицы с фильтрованными данными
 st.markdown("## Таблица фильтрованных данных")
 st.dataframe(filtered_df)
-
 
 
 
