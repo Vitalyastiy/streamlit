@@ -11,11 +11,15 @@ plt.style.use('dark_background')  # Устанавливаем стиль для
 # Загрузка данных из CSV файла
 df = pd.read_csv('Jira 2024-07-30T22_11_01+0300.csv')
 
-# Преобразование столбцов 'Обновленo' и 'Создано' в формат datetime
+# Преобразование столбцов 'Обновлено' и 'Создано' в формат datetime
 df['Обновлено'] = pd.to_datetime(df['Обновленo'], dayfirst=True)
 df['Создано'] = pd.to_datetime(df['Создано'], dayfirst=True)
 
+# Преобразование Story Points в int и заполнение NaN
 df['Пользовательское поле (Story Points)'] = df['Пользовательское поле (Story Points)'].fillna(0).astype(int)
+
+# Создание столбца 'Время выполнения'
+df['Время выполнения'] = (df['Обновлено'] - df['Создано']).dt.days
 
 # Фильтры в боковой панели
 st.sidebar.markdown("## Фильтры")
@@ -88,7 +92,6 @@ sns.boxplot(x='Исполнитель', y='Пользовательское по
 create_plot(fig5, ax5, 'Распределение Story Points по исполнителям')
 
 # График распределения времени выполнения задач
-filtered_df['Время выполнения'] = (filtered_df['Обновлено'] - filtered_df['Создано']).dt.days
 fig6, ax6 = plt.subplots(figsize=fig_size)
 sns.histplot(filtered_df['Время выполнения'], bins=20, kde=True, ax=ax6)
 create_plot(fig6, ax6, 'Распределение времени выполнения задач')
