@@ -8,7 +8,7 @@ import seaborn as sns
 plt.style.use('dark_background')  # Устанавливаем стиль для графиков
 
 # Загрузка данных из CSV файла
-df = pd.read_csv('Jira 2024-07-30T22_11_01+0300.csv')
+df = pd.read_csv(r'C:\Users\flerinvs\Desktop\Jira 2024-07-30T22_11_01+0300.csv')
 
 # Преобразование столбцов 'Обновленo' и 'Создано' в формат datetime
 df['Обновлено'] = pd.to_datetime(df['Обновленo'])
