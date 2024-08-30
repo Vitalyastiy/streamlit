@@ -174,4 +174,3 @@ st.markdown("## Таблица фильтрованных данных")
 st.dataframe(filtered_df)
 
 
-# %%
