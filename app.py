@@ -15,7 +15,7 @@ plt.style.use('default')
 plt.rcParams.update({'font.size': 30})  # Устанавливаем размер шрифта по умолчанию
 
 # Загрузка данных из CSV файла
-df = pd.read_csv('Моё в работе (Jira) 2024-08-29T13_51_55+0300.csv')
+df = pd.read_csv('Моё в работе (Jira) 2024-09-16T09_33_04+0300.csv')
 
 # Преобразование столбцов 'Обновлено' и 'Создано' в формат datetime
 df['Обновлено'] = pd.to_datetime(df['Обновленo'], dayfirst=True)
@@ -176,3 +176,5 @@ st.dataframe(filtered_df)
 
 
 # %%
+
+
